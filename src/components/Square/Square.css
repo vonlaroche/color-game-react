@@ -1,0 +1,49 @@
+.square{
+    display: flex;
+    width: 160px;
+    height: 160px; 
+    transition: background-color 0.5s ease-in;
+    border-radius: 25%;
+    margin: 10px 10px;
+    animation: slide-up 0.5s ease; 
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@media only screen and (max-width: 1100px){
+    .square{
+        width: 130px;
+        height: 130px; 
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .square{
+        width: 120px;
+        height: 120px; 
+    }    
+}
+
+@media only screen and (max-width: 425px){
+    .square {
+        width: 100px;
+        height: 100px
+    }
+}
+
+@media only screen and (max-width: 325px){
+    .square {
+        width: 80px;
+        height: 80px
+    }
+}
