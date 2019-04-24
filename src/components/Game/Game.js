@@ -1,5 +1,6 @@
 import React from "react";
 import Square from "../../components/Square/Square";
+import Button from "../Button/Button";
 import "./Game.css";
 
 const NUM_SQUARES = 3;
@@ -13,12 +14,13 @@ const randomRGB = () => {
 }
 
 const game = () => {
-    let squaresArr = [];
+    let colorsArr = [];
 
-    for (let i = 0; i < NUM_SQUARES; i++) {
-        squaresArr[i] = <Square color={randomRGB()}></Square>
+    for(let i=0; i< NUM_SQUARES; i++){
+        colorsArr[i]= randomRGB();
     }
 
+   
 
     return <div>
         <section className="head">
@@ -28,13 +30,13 @@ const game = () => {
         </section>
 
         <div className="filler">
-            <button className="newGame btnStyle">New Game</button>
-            <button className="easyMode btnStyle">Easy Mode</button>
-            <button className="hardMode btnStyle">Hard Mode</button>
+            <Button>New Game</Button>
+            <Button>Easy Mode</Button>
+            <Button>Hard Mode</Button>
         </div>
 
         <section className="game">
-            {squaresArr}
+            {colorsArr.map(color => <Square color={color}/>)}
         </section>
     </div>
 }
