@@ -35,13 +35,27 @@ class Game extends Component {
         correctIndex: chooseCorrectIndex()
     }
 
+
+    checkSquareHandler = index => {
+        if (index === this.state.correctIndex) {
+            alert("You guessed!");
+        }
+        else {
+            alert("Try again");
+        }
+    }
+
     render() {
         return (
             <div>
                 <section className="head">
                     <h1><p>Guess the color!</p></h1>
-                    <br /> 
-                    <h2><p className="colorParagraph">{this.state.colorsArr[this.state.correctIndex]}</p></h2>
+                    <br />
+                    <h2>
+                        <p className="colorParagraph">
+                            {this.state.colorsArr[this.state.correctIndex]}
+                        </p>
+                    </h2>
                 </section>
                 <div className="filler">
                     <Button>New Game</Button>
@@ -49,7 +63,9 @@ class Game extends Component {
                     <Button>Hard Mode</Button>
                 </div>
                 <section className="game">
-                    {this.state.colorsArr.map(color => <Square color={color} />)}
+                    {this.state.colorsArr.map((color, index) =>
+                        <Square onClick={() => this.checkSquareHandler(index)} color={color} />
+                    )}
                 </section>
             </div>
         )
