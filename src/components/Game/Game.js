@@ -23,11 +23,16 @@ const createColorsArr = () => {
     return colorsArrForState;
 }
 
+const chooseCorrectIndex = () => {
+    let correctIndex = Math.floor(Math.random() * NUM_SQUARES);
+    return correctIndex;
+}
+
 
 class Game extends Component {
     state = {
         colorsArr: createColorsArr(),
-        correctColor: ""
+        correctIndex: chooseCorrectIndex()
     }
 
     render() {
@@ -35,8 +40,8 @@ class Game extends Component {
             <div>
                 <section className="head">
                     <h1><p>Guess the color!</p></h1>
-                    <br />
-                    <h2><p className="colorParagraph"></p></h2>
+                    <br /> 
+                    <h2><p className="colorParagraph">{this.state.colorsArr[this.state.correctIndex]}</p></h2>
                 </section>
                 <div className="filler">
                     <Button>New Game</Button>
