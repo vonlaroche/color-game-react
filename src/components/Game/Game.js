@@ -3,7 +3,8 @@ import Square from "../../components/Square/Square";
 import Button from "../Button/Button";
 import "./Game.css";
 
-const NUM_SQUARES = 3;
+let NUM_SQUARES = 3;
+
 
 const randomRGB = () => {
     let r = Math.floor(Math.random() * 256);
@@ -35,14 +36,41 @@ class Game extends Component {
         correctIndex: chooseCorrectIndex()
     }
 
-
+     squaresArr = [];
+     correctColor = this.state.colorsArr[this.state.correctIndex];
+     
     checkSquareHandler = index => {
         if (index === this.state.correctIndex) {
             alert("You guessed!");
+            console.log(this.squaresArr)
+            console.log(this.squaresArr[0].props.color)
         }
         else {
             alert("Try again");
         }
+    }
+
+    newGameHandler = () => {
+        this.setState({
+            colorsArr: createColorsArr(),
+            correctIndex: chooseCorrectIndex()
+        })
+    }
+
+    hardModeHandler = () => {
+        NUM_SQUARES = 6;
+        this.setState({
+            colorsArr: createColorsArr(),
+            correctIndex:chooseCorrectIndex()
+        })
+    }
+
+    easyModeHandler= () => {
+        NUM_SQUARES = 3;
+        this.setState({
+            colorsArr:createColorsArr(),
+            correctIndex:chooseCorrectIndex()
+        })
     }
 
     render() {
@@ -58,14 +86,15 @@ class Game extends Component {
                     </h2>
                 </section>
                 <div className="filler">
-                    <Button>New Game</Button>
-                    <Button>Easy Mode</Button>
-                    <Button>Hard Mode</Button>
+                    <Button clicked={() => this.newGameHandler()}>New Game</Button>
+                    <Button clicked={() => this.easyModeHandler()}>Easy Mode</Button>
+                    <Button clicked={() => this.hardModeHandler()}>Hard Mode</Button>
                 </div>
                 <section className="game">
-                    {this.state.colorsArr.map((color, index) =>
+                    {this.squaresArr = this.state.colorsArr.map((color, index) =>
                         <Square onClick={() => this.checkSquareHandler(index)} color={color} />
                     )}
+                    
                 </section>
             </div>
         )
