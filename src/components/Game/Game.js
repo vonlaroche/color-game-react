@@ -36,14 +36,14 @@ class Game extends Component {
         correctIndex: chooseCorrectIndex()
     }
 
-     squaresArr = [];
-     correctColor = this.state.colorsArr[this.state.correctIndex];
-     
     checkSquareHandler = index => {
         if (index === this.state.correctIndex) {
             alert("You guessed!");
-            console.log(this.squaresArr)
-            console.log(this.squaresArr[0].props.color)
+            let tempColorsArr= [];
+            for(let i=0; i<NUM_SQUARES; i++){
+                tempColorsArr[i] = this.state.colorsArr[this.state.correctIndex];
+            }
+            this.setState({colorsArr:tempColorsArr});
         }
         else {
             alert("Try again");
@@ -61,15 +61,15 @@ class Game extends Component {
         NUM_SQUARES = 6;
         this.setState({
             colorsArr: createColorsArr(),
-            correctIndex:chooseCorrectIndex()
+            correctIndex: chooseCorrectIndex()
         })
     }
 
-    easyModeHandler= () => {
+    easyModeHandler = () => {
         NUM_SQUARES = 3;
         this.setState({
-            colorsArr:createColorsArr(),
-            correctIndex:chooseCorrectIndex()
+            colorsArr: createColorsArr(),
+            correctIndex: chooseCorrectIndex()
         })
     }
 
@@ -91,10 +91,9 @@ class Game extends Component {
                     <Button clicked={() => this.hardModeHandler()}>Hard Mode</Button>
                 </div>
                 <section className="game">
-                    {this.squaresArr = this.state.colorsArr.map((color, index) =>
+                    {this.state.colorsArr.map((color, index) =>
                         <Square onClick={() => this.checkSquareHandler(index)} color={color} />
                     )}
-                    
                 </section>
             </div>
         )
