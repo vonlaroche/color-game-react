@@ -33,7 +33,8 @@ const chooseCorrectIndex = () => {
 class Game extends Component {
     state = {
         colorsArr: createColorsArr(),
-        correctIndex: chooseCorrectIndex()
+        correctIndex: chooseCorrectIndex(),
+        backgroundColorHead: "rgb(10, 189, 202)"
     }
 
     checkSquareHandler = index => {
@@ -43,7 +44,10 @@ class Game extends Component {
             for(let i=0; i<NUM_SQUARES; i++){
                 tempColorsArr[i] = this.state.colorsArr[this.state.correctIndex];
             }
-            this.setState({colorsArr:tempColorsArr});
+            this.setState({
+                colorsArr:tempColorsArr,
+                backgroundColorHead:tempColorsArr[0]
+            });
         }
         else {
             alert("Try again");
@@ -53,7 +57,8 @@ class Game extends Component {
     newGameHandler = () => {
         this.setState({
             colorsArr: createColorsArr(),
-            correctIndex: chooseCorrectIndex()
+            correctIndex: chooseCorrectIndex(),
+            backgroundColorHead: "rgb(10, 189, 202)"
         })
     }
 
@@ -61,7 +66,8 @@ class Game extends Component {
         NUM_SQUARES = 6;
         this.setState({
             colorsArr: createColorsArr(),
-            correctIndex: chooseCorrectIndex()
+            correctIndex: chooseCorrectIndex(),
+            backgroundColorHead: "rgb(10, 189, 202)"
         })
     }
 
@@ -69,14 +75,15 @@ class Game extends Component {
         NUM_SQUARES = 3;
         this.setState({
             colorsArr: createColorsArr(),
-            correctIndex: chooseCorrectIndex()
+            correctIndex: chooseCorrectIndex(),
+            backgroundColorHead: "rgb(10, 189, 202)"
         })
     }
 
     render() {
         return (
             <div>
-                <section className="head">
+                <section className="head" style={{backgroundColor:this.state.backgroundColorHead}}>
                     <h1><p>Guess the color!</p></h1>
                     <br />
                     <h2>
