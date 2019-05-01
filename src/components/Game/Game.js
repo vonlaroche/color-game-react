@@ -3,8 +3,10 @@ import Square from "../../components/Square/Square";
 import Button from "../Button/Button";
 import "./Game.css";
 
-let NUM_SQUARES = 3;
-
+const DEFAULT_NUM_SQUARES = 3;
+const NUM_SQUARES_HARD = 6;
+const COLOR_BLUE = "rgb(10, 189, 202)";
+const defaultParagraphText = "Guess the color!";
 
 const randomRGB = () => {
     let r = Math.floor(Math.random() * 256);
@@ -14,7 +16,7 @@ const randomRGB = () => {
     return rgb;
 }
 
-const createColorsArr = () => {
+const createColorsArr = NUM_SQUARES => {
     let colorsArrForState = [];
 
     for (let i = 0; i < NUM_SQUARES; i++) {
@@ -24,7 +26,7 @@ const createColorsArr = () => {
     return colorsArrForState;
 }
 
-const chooseCorrectIndex = () => {
+const chooseCorrectIndex = NUM_SQUARES => {
     let correctIndex = Math.floor(Math.random() * NUM_SQUARES);
     return correctIndex;
 }
@@ -32,59 +34,67 @@ const chooseCorrectIndex = () => {
 
 class Game extends Component {
     state = {
-        colorsArr: createColorsArr(),
-        correctIndex: chooseCorrectIndex(),
-        backgroundColorHead: "rgb(10, 189, 202)"
+        colorsArr: createColorsArr(DEFAULT_NUM_SQUARES),
+        correctIndex: chooseCorrectIndex(DEFAULT_NUM_SQUARES),
+        numSquares: DEFAULT_NUM_SQUARES,
+        backgroundColorHead: COLOR_BLUE,
+        paragraphText: defaultParagraphText,
+
     }
 
     checkSquareHandler = index => {
         if (index === this.state.correctIndex) {
-            alert("You guessed!");
-            let tempColorsArr= [];
-            for(let i=0; i<NUM_SQUARES; i++){
+            let tempColorsArr = [];
+            for (let i = 0; i < this.state.numSquares; i++) {
                 tempColorsArr[i] = this.state.colorsArr[this.state.correctIndex];
             }
             this.setState({
-                colorsArr:tempColorsArr,
-                backgroundColorHead:tempColorsArr[0]
+                colorsArr: tempColorsArr,
+                backgroundColorHead: tempColorsArr[0],
+                paragraphText: "You guessed!"
             });
         }
         else {
-            alert("Try again");
+            this.setState({
+                paragraphText: "Try again"
+            })
         }
     }
 
     newGameHandler = () => {
         this.setState({
-            colorsArr: createColorsArr(),
-            correctIndex: chooseCorrectIndex(),
-            backgroundColorHead: "rgb(10, 189, 202)"
+            colorsArr: createColorsArr(this.state.numSquares),
+            correctIndex: chooseCorrectIndex(this.state.numSquares),
+            backgroundColorHead: COLOR_BLUE,
+            paragraphText: defaultParagraphText
         })
     }
 
     hardModeHandler = () => {
-        NUM_SQUARES = 6;
         this.setState({
-            colorsArr: createColorsArr(),
-            correctIndex: chooseCorrectIndex(),
-            backgroundColorHead: "rgb(10, 189, 202)"
+            colorsArr: createColorsArr(NUM_SQUARES_HARD),
+            correctIndex: chooseCorrectIndex(NUM_SQUARES_HARD),
+            numSquares: NUM_SQUARES_HARD,
+            backgroundColorHead: COLOR_BLUE,
+            paragraphText: defaultParagraphText
         })
     }
 
     easyModeHandler = () => {
-        NUM_SQUARES = 3;
         this.setState({
-            colorsArr: createColorsArr(),
-            correctIndex: chooseCorrectIndex(),
-            backgroundColorHead: "rgb(10, 189, 202)"
+            colorsArr: createColorsArr(DEFAULT_NUM_SQUARES),
+            correctIndex: chooseCorrectIndex(DEFAULT_NUM_SQUARES),
+            numSquares: DEFAULT_NUM_SQUARES,
+            backgroundColorHead: COLOR_BLUE,
+            paragraphText: defaultParagraphText
         })
     }
 
     render() {
         return (
             <div>
-                <section className="head" style={{backgroundColor:this.state.backgroundColorHead}}>
-                    <h1><p>Guess the color!</p></h1>
+                <section className="head" style={{ backgroundColor: this.state.backgroundColorHead }}>
+                    <h1><p>{this.state.paragraphText}</p></h1>
                     <br />
                     <h2>
                         <p className="colorParagraph">
