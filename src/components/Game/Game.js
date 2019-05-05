@@ -70,21 +70,11 @@ class Game extends Component {
         })
     }
 
-    hardModeHandler = () => {
+    difficultyModeHandler = NUM_SQUARES => {
         this.setState({
-            colorsArr: createColorsArr(NUM_SQUARES_HARD),
-            correctIndex: chooseCorrectIndex(NUM_SQUARES_HARD),
-            numSquares: NUM_SQUARES_HARD,
-            backgroundColorHead: COLOR_BLUE,
-            paragraphText: defaultParagraphText
-        })
-    }
-
-    easyModeHandler = () => {
-        this.setState({
-            colorsArr: createColorsArr(DEFAULT_NUM_SQUARES),
-            correctIndex: chooseCorrectIndex(DEFAULT_NUM_SQUARES),
-            numSquares: DEFAULT_NUM_SQUARES,
+            colorsArr: createColorsArr(NUM_SQUARES),
+            correctIndex: chooseCorrectIndex(NUM_SQUARES),
+            numSquares: NUM_SQUARES,
             backgroundColorHead: COLOR_BLUE,
             paragraphText: defaultParagraphText
         })
@@ -104,8 +94,8 @@ class Game extends Component {
                 </section>
                 <div className="filler">
                     <Button clicked={() => this.newGameHandler()}>New Game</Button>
-                    <Button clicked={() => this.easyModeHandler()}>Easy Mode</Button>
-                    <Button clicked={() => this.hardModeHandler()}>Hard Mode</Button>
+                    <Button clicked={() => this.difficultyModeHandler(DEFAULT_NUM_SQUARES)}>Easy Mode</Button>
+                    <Button clicked={() => this.difficultyModeHandler(NUM_SQUARES_HARD)}>Hard Mode</Button>
                 </div>
                 <section className="game">
                     {this.state.colorsArr.map((color, index) =>
